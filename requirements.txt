@@ -1,0 +1,10 @@
+time
+sentence_transformers
+torch
+numpy 
+pandas
+unidecode
+word2number
+contractions
+regex
+os 
