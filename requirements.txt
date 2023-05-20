@@ -8,3 +8,4 @@ word2number
 contractions
 regex
 os 
+functions_framework

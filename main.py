@@ -8,9 +8,20 @@ from word2number import w2n
 import contractions
 import regex as re
 import os 
+import functions_framework
 
 N=10
-
+@functions_framework.http
+def my_http_function(request):
+    request_json = request.get_json()
+    if request.args and 'message' in request.args:
+        return main(request.args.get('message'))
+    elif request_json and 'message' in request_json:
+        return main(request_json['message'])
+    else:
+        return main("embroidered gown full length")
+    
+    
 def preprocess(text):
     text = unidecode.unidecode(text)    # Remove accents
     text = contractions.fix(text)       # Expand contractions
@@ -29,7 +40,6 @@ def main(sample):
     ajio_embeddings = torch.tensor(ajio_embeddings, dtype=torch.float32)            # Converting the embeddings to a tensor
     ajio = pd.read_csv('dataset.csv')                                               # Loading the Datastore from the CSV file
 
-    sample = "embroidered gown full length"                                         # Sample Search Query
     sample = preprocess(sample)                                                     # Preprocessing the Search Query
     sample_emb = model.encode(sample, convert_to_tensor=True)                       # Getting the embeddings of the Search Query
 
@@ -39,7 +49,6 @@ def main(sample):
     # print(np.array(list(zip(urls,scores[indexes]))))                                # Printing the links and the scores of the top N items  
 
     print("Time Taken: ", time.time()-t)
-    print(urls)
-    return urls
+    return {"urls":urls}
 
 main("embroidered gown full length")
