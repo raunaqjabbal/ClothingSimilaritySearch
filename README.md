@@ -18,3 +18,7 @@ Deployment Code:
 - the .csv files mentioned above
 - main.py file which does the computation
 - test.py file to confirm if code has been deployed correctly or not.
+
+
+Link:
+https://getprediction-bhdhvw323q-el.a.run.app
